@@ -1,6 +1,6 @@
 // Interações
 
-function eventoDoMenu(){
+function eventoDoMenu() {
 
     let icone = document.querySelector("#icone")
     let menu = document.querySelector("#menu")
@@ -10,19 +10,19 @@ function eventoDoMenu(){
     let menuOn = false
     menu.style.transition = "all .4s"
 
-    function fechaMenu(){
+    function fechaMenu() {
         menu.style.marginLeft = "-50%"
         menuOn = false
     }
 
-    function abreMenu(){
+    function abreMenu() {
         menu.style.marginLeft = "0"
         menu.style.transition = "all .4s"
         menuOn = true
     }
 
     icone.addEventListener('click', () => {
-        if(menuOn == false){
+        if (menuOn == false) {
             abreMenu()
         } else {
             fechaMenu()
@@ -30,7 +30,7 @@ function eventoDoMenu(){
     })
 
     cadastrar.addEventListener('click', () => {
-        if(menuOn == false){
+        if (menuOn == false) {
             abreMenu()
         } else {
             fechaMenu()
@@ -38,7 +38,7 @@ function eventoDoMenu(){
     })
 
     visualizar.addEventListener('click', () => {
-        if(menuOn == false){
+        if (menuOn == false) {
             abreMenu()
         } else {
             fechaMenu()
@@ -46,13 +46,13 @@ function eventoDoMenu(){
     })
 
     documento.addEventListener('click', () => {
-        if(menuOn == true){
+        if (menuOn == true) {
             fechaMenu()
         }
     })
 }
 
-function interacaoTelaWindow(){
+function interacaoTelaWindow() {
     let update = document.querySelector("#box-user-update")
     let view = document.querySelector("#box-user-view")
     let spacer = document.querySelector("#spacer")
@@ -65,14 +65,14 @@ function interacaoTelaWindow(){
     spacer.style.display = "none"
     create.style.display = "none"
 
-    function blockView(){
+    function blockView() {
         spacer.style.display = "block"
         create.style.display = "block"
         update.style.display = "none"
         view.style.display = "none"
     }
 
-    function showView(){
+    function showView() {
         spacer.style.display = "none"
         update.style.display = "none"
         view.style.display = "block"
@@ -98,7 +98,7 @@ function interacaoTelaWindow(){
     })
 }
 
-function interacaoTela(){
+function interacaoTela() {
     let update = document.querySelector("#box-user-update")
     let view = document.querySelector("#box-user-view")
     let spacer = document.querySelector("#spacer")

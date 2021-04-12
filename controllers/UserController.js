@@ -1,6 +1,6 @@
-class UserController{
+class UserController {
 
-    constructor(formIdCreate, formIdUpdate, tableId){
+    constructor(formIdCreate, formIdUpdate, tableId) {
 
         this.formEl = document.querySelector(formIdCreate)
         this.formUpdateEl = document.querySelector(formIdUpdate)
@@ -12,7 +12,7 @@ class UserController{
 
     }
 
-    onEdit(){
+    onEdit() {
 
         document.querySelector("#box-user-update .btn-cancel").addEventListener("click", () => {
 
@@ -29,7 +29,7 @@ class UserController{
 
             let values = this.getValues(this.formUpdateEl)
 
-            let index =  this.formUpdateEl.dataset.trIndex
+            let index = this.formUpdateEl.dataset.trIndex
 
             let tr = this.tableEl.rows[index]
 
@@ -42,10 +42,9 @@ class UserController{
             this.getPhoto(this.formUpdateEl).then(
                 (content) => {
 
-                    if(!values._photo) {
+                    if (!values._photo) {
                         result._photo = userOld._photo
-                    }
-                    else{
+                    } else {
                         result._photo = content
                     }
 
@@ -56,7 +55,7 @@ class UserController{
                     user.save()
 
                     this.getTr(user, tr)
-        
+
                     this.updateCount()
 
                     this.formUpdateEl.reset()
@@ -73,7 +72,7 @@ class UserController{
 
     }
 
-    onSubmit(){
+    onSubmit() {
 
         // Seleciona o formulário no botão submit
         this.formEl.addEventListener("submit", event => {
@@ -87,7 +86,7 @@ class UserController{
 
             let values = this.getValues(this.formEl)
 
-            if(!values) return false
+            if (!values) return false
 
             this.getPhoto(this.formEl).then(
                 (content) => {
@@ -112,7 +111,7 @@ class UserController{
 
     }
 
-    getPhoto(formEl){
+    getPhoto(formEl) {
 
         return new Promise((resolve, reject) => {
 
@@ -120,17 +119,17 @@ class UserController{
 
             let img = [...formEl.elements]
             let elements = img.filter(item => {
-    
+
                 if (item.name === 'photo') return item
-    
+
             })
-    
+
             let file = elements[0].files[0]
-    
+
             fileReader.onload = () => {
-    
+
                 resolve(fileReader.result)
-    
+
             }
 
             fileReader.onerror = (e) => {
@@ -138,17 +137,17 @@ class UserController{
                 reject(e)
 
             }
-    
-            if(file){
+
+            if (file) {
                 fileReader.readAsDataURL(file)
-            } else{
+            } else {
                 resolve('dist/img/boxed-bg.jpg')
             }
 
         })
 
     }
-   
+
 
     getValues(formEl) {
 
@@ -167,26 +166,26 @@ class UserController{
             }
 
             // Válida o radio de sexo do usuário
-            if(field.name == "gender") {
-                
+            if (field.name == "gender") {
+
                 // Recebe as informações no JSON
-                if(field.checked) user[field.name] = field.value
-        
-            } else if(field.name == "admin"){
+                if (field.checked) user[field.name] = field.value
+
+            } else if (field.name == "admin") {
 
                 user[field.name] = field.checked
 
             } else {
-        
+
                 // Recebe as informações no JSON
                 user[field.name] = field.value
-        
-            }   
-        
+
+            }
+
         })
 
-        if(!idValid) return false
-    
+        if (!idValid) return false
+
         return new User(
             user.name,
             user.gender,
@@ -200,7 +199,7 @@ class UserController{
 
     }
 
-    selectAll(){
+    selectAll() {
         let users = User.getUserStorage()
 
         users.forEach(data => {
@@ -223,11 +222,11 @@ class UserController{
         this.tableEl.appendChild(tr)
 
         this.updateCount()
-    
+
     }
 
-    getTr(dataUser, tr = null){
-        if (tr=== null) tr = document.createElement('tr')
+    getTr(dataUser, tr = null) {
+        if (tr === null) tr = document.createElement('tr')
 
         tr.dataset.user = JSON.stringify(dataUser)
 
@@ -251,11 +250,11 @@ class UserController{
 
     }
 
-    addEventsTr(tr){
+    addEventsTr(tr) {
 
         tr.querySelector(".btn-delete").addEventListener("click", () => {
 
-            if(confirm("Deseja realmente excluir?")) {
+            if (confirm("Deseja realmente excluir?")) {
 
                 let user = new User()
 
@@ -277,30 +276,30 @@ class UserController{
 
             this.formUpdateEl.dataset.trIndex = tr.sectionRowIndex
 
-            for(let name in json){
+            for (let name in json) {
 
                 let field = this.formUpdateEl.querySelector("[name=" + name.replace("_", "") + "]")
 
-                if(field){
+                if (field) {
 
-                    switch(field.type){
+                    switch (field.type) {
 
                         case 'file':
                             continue
-                        break;
+                            break;
 
                         case 'radio':
                             field = this.formUpdateEl.querySelector("[name=" + name.replace("_", "") + "][value=" + json[name] + "]")
                             field.checked = true
-                        break;
+                            break;
 
                         case 'checkbox':
                             field.checked = json[name]
-                        break;
+                            break;
 
                         default:
                             field.value = json[name]
-                        break;
+                            break;
 
                     }
 
@@ -318,19 +317,19 @@ class UserController{
 
     }
 
-    showPanelCreate(){
+    showPanelCreate() {
 
         document.querySelector("#box-user-update").style.display = "none"
 
     }
 
-    showPanelUpdate(){
+    showPanelUpdate() {
 
         document.querySelector("#box-user-create").style.display = "none"
 
     }
 
-    updateCount(){
+    updateCount() {
 
         let numberUser = 0
         let numberAdmin = 0
@@ -342,7 +341,7 @@ class UserController{
 
             numberUser++
 
-            if(user._admin == true) { numberAdmin++ }
+            if (user._admin == true) { numberAdmin++ }
 
         })
 
